@@ -38,7 +38,7 @@ class Controller {
     protected function view($view = 'index', array $array_data = NULL) {
         $path_info = explode('/', $_SERVER['PATH_INFO']);
         $controller = $path_info[1];
-        $view_path = PATH_ROOT . '/views/' . $controller . '/' . $view . '.php';
+        $view_path = PATH_ROOT . '/views/' . $controller . '/' . strtolower($view) . '.php';
         if (file_exists($view_path)) {
             if ($array_data != NULL) {
                 $valiable = '';

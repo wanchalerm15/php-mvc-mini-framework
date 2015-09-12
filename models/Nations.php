@@ -1,6 +1,6 @@
 <?php
 
-class Nations {
+class Nations extends Model{
 
     public function FindAll() {
         $db = Database::Connect();

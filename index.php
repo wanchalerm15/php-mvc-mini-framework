@@ -7,10 +7,8 @@ if (isset($_SERVER['PATH_INFO'])) {
     $controller_info = strtolower($path_info[1]);
     $controller_path = 'controllers/' . $controller_info . 'Controller.php';
     if (file_exists($controller_path)) {
-        $controller_path = PATH_ROOT . '/' . $controller_path;
-        require_once ($controller_path);
-        eval('new ' . $controller_info . 'Controller();');
-        unset($path_info, $controller_info, $controller_path);
+        $controller_start = 'new ' . $controller_info . 'Controller();';
+        eval($controller_start);
     } else {
         $error = array(
             'status' => 404,
@@ -18,6 +16,7 @@ if (isset($_SERVER['PATH_INFO'])) {
         );
         exit(Configs::OutputError($error));
     }
+    unset($controller_start, $path_info, $controller_info, $controller_path);
 }
 
 

@@ -25,6 +25,7 @@ class Controller {
                 );
                 exit(Configs::OutputError($error));
             }
+            unset($action_path, $action_info, $actions);
         } else {
             $error = array(
                 'status' => 304,
@@ -32,6 +33,30 @@ class Controller {
             );
             exit(Configs::OutputError($error));
         }
+    }
+
+    protected function view($view = 'index', array $array_data = NULL) {
+        $path_info = explode('/', $_SERVER['PATH_INFO']);
+        $controller = $path_info[1];
+        $view_path = PATH_ROOT . '/views/' . $controller . '/' . $view . '.php';
+        if (file_exists($view_path)) {
+            if ($array_data != NULL) {
+                $valiable = '';
+                foreach ($array_data as $key => $value) {
+                    $valiable .= '$' . $key . '=' . var_export($value, true) . ';';
+                }
+                eval($valiable);
+            }
+            require ($view_path);
+            unset($valiable, $value);
+        } else {
+            $error = array(
+                'status' => 404,
+                'debug' => 'View Not Found !'
+            );
+            exit(Configs::OutputError($error));
+        }
+        unset($path_info, $controller, $view_path);
     }
 
 }

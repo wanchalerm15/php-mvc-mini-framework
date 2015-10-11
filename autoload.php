@@ -1,6 +1,6 @@
 <?php
 $SCRIPT_NAME = $_SERVER['SCRIPT_NAME'];
-$REQUEST_URI = $_SERVER['REQUEST_URI'];
+$REQUEST_URI = explode('?', $_SERVER['REQUEST_URI'])[0];
 if(!strpos($REQUEST_URI, 'index.php')){
 	$SCRIPT_NAME = str_replace('/index.php', '', $SCRIPT_NAME);
 }
